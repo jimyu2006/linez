@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
 
     <ImageView
         android:id="@+id/bgView"
@@ -17,15 +17,6 @@
         android:visibility="visible"
         app:srcCompat="@drawable/bg"
         tools:layout_width="wrap_content" />
-
-    <ImageView
-        android:id="@+id/ballView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="178dp"
-        app:srcCompat="@drawable/ball_r" />
 
     <TextView
         android:id="@+id/infoText"
@@ -44,5 +35,8 @@
         android:layout_above="@+id/infoText"
         android:layout_alignParentStart="true"
         android:orientation="horizontal"></LinearLayout>
+
+
+
 
 </RelativeLayout>
