@@ -47,7 +47,7 @@ public class Board {
     private void initArray() {
         for (int i = 0; i < gridCount; i++) {
             for (int j = 0; j < gridCount; j++) {
-                boardArray[i][j] = new GridAttribute(null, 0);
+                boardArray[i][j] = new GridAttribute(null, Constants.Status.BLANK);
             }
         }
     }
@@ -83,8 +83,8 @@ public class Board {
         do {
             x = RandomColor.getNextPosition();
             y = RandomColor.getNextPosition();
-            if (boardArray[x][y].status != 1) {
-                boardArray[x][y].status = 1;
+            if (boardArray[x][y].status != Constants.Status.BLANK) {
+                boardArray[x][y].status = Constants.Status.BLANK;
                 nextPositions[filledCount] = new Position(x, y);
                 filledCount++;
             }

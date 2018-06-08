@@ -4,9 +4,9 @@ public class GridAttribute {
     int x;
     int y;
     String color;
-    int status;
+    Constants.Status status;
 
-    public GridAttribute(String color, int status){
+    public GridAttribute(String color, Constants.Status status){
         this.x=x;
         this.y=y;
         this.color=color;
@@ -17,7 +17,7 @@ public class GridAttribute {
         this.color=newColor;
     }
 
-    public void setStatus(int status){
+    public void setStatus(Constants.Status status){
         this.status=status;
     }
 
@@ -25,7 +25,7 @@ public class GridAttribute {
         return this.color;
     }
 
-    public int getStatus(){
+    public Constants.Status getStatus(){
         return this.status;
     }
 }

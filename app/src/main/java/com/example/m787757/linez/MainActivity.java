@@ -97,13 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-//        frameLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i("Clicked setOnClickListener:", v.getClass().getName());
-//
-//            }
-//        });
     }
 
     private void addImageList() {
