@@ -11,8 +11,6 @@ public class ImageViewCreater {
         ImageView imgView = new ImageView(context);
 
         imgView.setLayoutParams(new android.view.ViewGroup.LayoutParams(width, height));
-//        imgView.getLayoutParams().width = width;
-//        imgView.getLayoutParams().height = height;
 
         int res =context.getResources().getIdentifier(imageName,
                 "drawable", context.getPackageName());

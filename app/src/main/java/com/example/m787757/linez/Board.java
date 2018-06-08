@@ -83,7 +83,7 @@ public class Board {
         do {
             x = RandomColor.getNextPosition();
             y = RandomColor.getNextPosition();
-            if (boardArray[x][y].status != Constants.Status.BLANK) {
+            if (boardArray[x][y].status != Constants.Status.USED) {
                 boardArray[x][y].status = Constants.Status.BLANK;
                 nextPositions[filledCount] = new Position(x, y);
                 filledCount++;

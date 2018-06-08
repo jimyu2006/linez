@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import static com.example.m787757.linez.Constants.gridCount;
 
 public class MainActivity extends AppCompatActivity {
-
     ImageView clickedImageView = null;
     ArrayList<ImageView> nextBallsList;
 
@@ -33,11 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
-
-//        final TextView infoText=findViewById(R.id.infoText);
-//        ImageView bgView = (ImageView) findViewById(R.id.bgView);
-
-
     }
 
     private void init() {
@@ -46,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initBoard() {
-//        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         ImageView bgView = (ImageView) findViewById(R.id.bgView);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -56,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         Board board = new Board(
                 this,
-//                this.getApplicationContext(),
                 width,
                 width,
                 Bitmap.Config.ARGB_8888,
