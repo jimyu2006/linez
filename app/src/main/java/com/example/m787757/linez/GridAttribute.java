@@ -1,14 +1,14 @@
 package com.example.m787757.linez;
 
 public class GridAttribute {
-//    int x;
-//    int y;
+    int x;
+    int y;
     String color;
     int status;
 
     public GridAttribute(String color, int status){
-//        this.x=x;
-//        this.y=y;
+        this.x=x;
+        this.y=y;
         this.color=color;
         this.status=status;
     }

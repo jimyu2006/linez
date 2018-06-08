@@ -13,7 +13,6 @@
         android:layout_height="390dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
         android:visibility="visible"
         app:srcCompat="@drawable/bg"
         tools:layout_width="wrap_content" />
@@ -27,6 +26,15 @@
         android:layout_marginBottom="22dp"
         android:text="TextView" />
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:clickable="true">
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/nextBallsLayout"
@@ -35,8 +43,5 @@
         android:layout_above="@+id/infoText"
         android:layout_alignParentStart="true"
         android:orientation="horizontal"></LinearLayout>
-
-
-
 
 </RelativeLayout>

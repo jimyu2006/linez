@@ -2,10 +2,12 @@ package com.example.m787757.linez;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,7 +23,7 @@ import static com.example.m787757.linez.Constants.gridCount;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    ImageView clickedImageView = null;
     ArrayList<ImageView> nextBallsList;
 
     @Override
@@ -31,41 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
-//        View.OnClickListener clickListener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean isView = false;
-//                for (View view : views) {
-//                    if (v.equals(view)) {
-//                        isView = true;
-//                        break;
-//                    }
-//                }
-//
-//                if (isView) {
-//                    Log.e(TAG, "Click on view");
-//                } else {
-//                    Log.e(TAG, "Click on layout");
-//                }
-//            }
-//        };
+
+//        final TextView infoText=findViewById(R.id.infoText);
+//        ImageView bgView = (ImageView) findViewById(R.id.bgView);
 
 
-        final TextView infoText=findViewById(R.id.infoText);
-        ImageView bgView = (ImageView) findViewById(R.id.bgView);
-        bgView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                     infoText.setText("Touch coordinates : " +
-                            String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
-
-//                    MyAnimation animation=new MyAnimation(ballView, event, 1000);
-//                    animation.Move();
-                }
-                return true;
-            }
-        });
     }
 
     private void init() {
@@ -83,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         int width = displayMetrics.widthPixels;
 
         Board board = new Board(
-//                this,
-                this.getApplicationContext(),
+                this,
+//                this.getApplicationContext(),
                 width,
                 width,
                 Bitmap.Config.ARGB_8888,
@@ -92,22 +64,46 @@ public class MainActivity extends AppCompatActivity {
 
         board.init();
 
-        FrameLayout frameLayout = Grid.generateLayout(this,width, width);
+        FrameLayout frameLayout = findViewById(R.id.frameLayout);
 
-        RelativeLayout rootLayout=findViewById(R.id.rootLayout);
-        rootLayout.addView(frameLayout);
-
-        Position[] initPositions = board.generateNextPosition();
-        String[] nextColorsList = RandomColor.getNext3Colors();
-
-        int gridSize=board.getGridSize();
-        Log.i("Gridsize:", String.valueOf(gridSize));
+        Position[] positions = board.generateNextPosition();
+        String[] colorsList = RandomColor.getNext3Colors();
+        int gridSize = board.getGridSize();
 
         Grid.addBallsToGrid(frameLayout,
-                this.getApplicationContext(),
-                initPositions,
-                nextColorsList,
+                this,
+                positions,
+                colorsList,
                 gridSize);
+
+
+        final TextView infoText = findViewById(R.id.infoText);
+
+        frameLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    infoText.setText("Touch coordinates : " +
+                            String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
+
+                    Log.i("setOnTouchListener Clicked:", v.getClass().getName());
+
+                    ImageView target = ((MainActivity) v.getContext()).clickedImageView;
+                    if (target != null) {
+                        MyAnimation animation = new MyAnimation(target, event, 1000);
+                        animation.Move();
+                    }
+                }
+                return true;
+            }
+        });
+//        frameLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.i("Clicked setOnClickListener:", v.getClass().getName());
+//
+//            }
+//        });
     }
 
     private void addImageList() {
@@ -117,10 +113,11 @@ public class MainActivity extends AppCompatActivity {
         String[] nextColorsList = RandomColor.getNext3Colors();
 
         for (String c : nextColorsList) {
-            ImageView img = ImageViewCreater.generator(this, "ball_" + c, 80, 80);
+            ImageView img = ImageViewCreater.generator(this, "ball_" + c, 50, 50);
             nextBallsList.add(img);
             layout.addView(img);
         }
-   }
+    }
+
 
 }
