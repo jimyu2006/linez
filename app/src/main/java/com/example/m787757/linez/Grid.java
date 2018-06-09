@@ -8,6 +8,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+
 import static com.example.m787757.linez.Constants.gridCount;
 
 public class Grid {
@@ -25,7 +27,7 @@ public class Grid {
         return layout;
     }
 
-    static void addBallsToGrid(FrameLayout layout, Context context, Position[] positions, String[] colorsList, int gridSize) {
+    static void addBallsToGrid(FrameLayout layout, Context context, Position[] positions, String[] colorsList, final int gridSize) {
         for (int i = 0; i < positions.length; i++) {
             String c = colorsList[i];
             ImageView imgView = ImageViewCreater.generator(context, "ball_" + c, gridSize, gridSize);
@@ -41,6 +43,10 @@ public class Grid {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         Log.i("Clicked:", v.getClass().getName());
                         ((MainActivity) v.getContext()).clickedImageView = (ImageView) v;
+
+                        int x=((int) event.getX())/gridSize * gridSize;
+                        int y=((int) event.getY())/gridSize * gridSize;
+                        ((MainActivity) v.getContext()).startPosition = new Position(x,y);
                     }
                     return true;
                 }
@@ -118,5 +124,67 @@ public class Grid {
             }
         }
         return board;
+    }
+
+    static ArrayList<Node> UpdatePaths(GridAttribute[][] array ){
+        ArrayList<Node> nodeList=new ArrayList<Node>();
+
+        for (int i = 0; i < gridCount; i++)
+            for (int j = 0; j < gridCount; j++)
+            {
+                if (array[i][j].status == Constants.Status.BLANK)
+                {
+                    String id = String.valueOf(i) + String.valueOf(j);
+                    Node node = new Node(id);
+                    nodeList.add(node);
+
+                    if (i - 1 >= 0)
+                    {
+                        if (array[i - 1][j].status == Constants.Status.BLANK)
+                        {
+                            Edge left = new Edge();
+                            left.StartNodeID = id;
+                            left.EndNodeID = String.valueOf(i - 1) + String.valueOf(j);
+                            left.Weight = 1;
+                            node.getEdgeList().add(left);
+                        }
+                    }
+
+                    if (i + 1 < gridCount)
+                    {
+                        if (array[i + 1][j].status ==  Constants.Status.BLANK)
+                        {
+                            Edge right = new Edge();
+                            right.StartNodeID = id;
+                            right.EndNodeID = String.valueOf(i + 1) + String.valueOf(j);
+                            right.Weight = 1;
+                            node.getEdgeList().add(right);
+                        }
+                    }
+                    if (j - 1 >= 0)
+                    {
+                        if (array[i][j - 1].status ==  Constants.Status.BLANK)
+                        {
+                            Edge top = new Edge();
+                            top.StartNodeID = id;
+                            top.EndNodeID = String.valueOf(i) + String.valueOf(j - 1);
+                            top.Weight = 1;
+                            node.getEdgeList().add(top);
+                        }
+                    }
+                    if (j + 1 < gridCount)
+                    {
+                        if (array[i][j + 1].status == Constants.Status.BLANK)
+                        {
+                            Edge bottom = new Edge();
+                            bottom.StartNodeID = id;
+                            bottom.EndNodeID = String.valueOf(i) + String.valueOf(j + 1);
+                            bottom.Weight = 1;
+                            node.getEdgeList().add(bottom);
+                        }
+                    }
+                }
+            }
+            return nodeList;
     }
 }

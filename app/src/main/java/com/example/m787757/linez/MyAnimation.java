@@ -8,18 +8,18 @@ import android.view.View;
 
 public class MyAnimation {
     View view;
-    MotionEvent event;
+    Position position;
     int duration;
 
-    public MyAnimation(View view, MotionEvent event, int duration){
+    public MyAnimation(View view, Position position, int duration){
         this.view=view;
-        this.event=event;
+        this.position=position;
         this.duration=duration;
     }
 
     public void Move(){
-        ObjectAnimator animX = ObjectAnimator.ofFloat(view, "x", event.getX());
-        ObjectAnimator animY = ObjectAnimator.ofFloat(view, "y", event.getY());
+        ObjectAnimator animX = ObjectAnimator.ofFloat(view, "x", position.x);
+        ObjectAnimator animY = ObjectAnimator.ofFloat(view, "y", position.y);
 
         AnimatorSet animSetXY = new AnimatorSet();
         animSetXY.playTogether(animX, animY);

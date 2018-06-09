@@ -23,6 +23,8 @@ import static com.example.m787757.linez.Constants.gridCount;
 
 public class MainActivity extends AppCompatActivity {
     ImageView clickedImageView = null;
+    Position startPosition=null;
+
     ArrayList<ImageView> nextBallsList;
 
     @Override
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         Position[] positions = board.generateNextPosition();
         String[] colorsList = RandomColor.getNext3Colors();
-        int gridSize = board.getGridSize();
+        final int gridSize = board.getGridSize();
 
         Grid.addBallsToGrid(frameLayout,
                 this,
@@ -80,9 +82,13 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.i("setOnTouchListener Clicked:", v.getClass().getName());
 
+                    int x=((int) event.getX())/gridSize * gridSize;
+                    int y=((int) event.getY())/gridSize * gridSize;
+
                     ImageView target = ((MainActivity) v.getContext()).clickedImageView;
+
                     if (target != null) {
-                        MyAnimation animation = new MyAnimation(target, event, 1000);
+                        MyAnimation animation = new MyAnimation(target, new Position(x,y), 1000);
                         animation.Move();
                     }
                 }
